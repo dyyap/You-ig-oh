@@ -17,6 +17,8 @@ public class ProbabilityGrid {
 
 		this.packLevels = maxPackLevel;
 		this.cardLevels = maxCardLevel;
+		probabilities=new float[maxPackLevel][maxCardLevel];
+		
 		try {
 			load(new File(location));
 		} catch (IOException e) {
@@ -27,16 +29,16 @@ public class ProbabilityGrid {
 	/**
 	 * 
 	 * @param packLvl
-	 *            The level of the pack (start at 0)
+	 *            The level of the pack (starts at 0)
 	 * @param cardLvl
-	 *            The level of the card (start at 0)
+	 *            The level of the card (starts at 0)
 	 * @return Probability between 0 (exclusive) and 1 (exclusive)
 	 */
 	public float getProbablity(int packLvl, int cardLvl) {
 		return probabilities[packLvl][cardLvl];
 	}
 
-	public void load(File f) throws IOException {
+	private void load(File f) throws IOException {
 
 		int insertColumn = 0, insertRow = 0;
 
