@@ -47,7 +47,7 @@ public class ProbabilityGrid {
 		do {
 
 			String line = s.nextLine();
-
+//Skip if the line is negative or just "-----------" (marks end of column)
 			if (line.contains("-")) {
 				insertColumn++;
 				insertRow = 0;
@@ -55,7 +55,7 @@ public class ProbabilityGrid {
 			}
 
 			float value = s.nextFloat();
-
+//If value is between 0 and 1, add it to the grid
 			if (value > 0 && value < 1) {
 				probabilities[insertColumn][insertRow] = value;
 				insertRow++;
@@ -73,7 +73,7 @@ public class ProbabilityGrid {
 	}
 
 	private boolean loadedCorrectly() {
-
+//If each value is something between 0 and 1, it is correct
 		for (int x = 0; x < packLevels; x++) {
 			for (int y = 0; y < cardLevels; y++) {
 
