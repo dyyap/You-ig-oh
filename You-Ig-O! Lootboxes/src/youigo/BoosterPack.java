@@ -27,14 +27,16 @@ public class BoosterPack {
 	private void fillArray() {
 		
 		for(int i=0;i<cards.length-1;i++) {
+			//The roll 0 thru 1
 			double roll=random.nextDouble();
 			
 			boolean inserted=false;
 			do {
 				Card c = getRandomCard();
+				//Probability from file
 				double prob = grid.getProbablity(level, c.getLevel());
-			
-				if(prob>=roll) {
+			//If roll is less than or equal to probabilty (higher prob = more likely), add a copy of card
+				if(roll<=prob) {
 					cards[i]=new Card(c);
 					inserted=true;
 				}
