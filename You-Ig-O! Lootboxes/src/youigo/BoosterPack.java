@@ -1,5 +1,6 @@
 package youigo;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class BoosterPack {
@@ -13,10 +14,13 @@ public class BoosterPack {
 	
 	private ProbabilityGrid grid;
 	
-	public BoosterPack(int lvl,Random r,ProbabilityGrid g) {
+	private ArrayList<Card> possibleCards = new ArrayList<>();
+	
+	public BoosterPack(int lvl,Random r,ProbabilityGrid g, ArrayList<Card> allCards) {
 		level=lvl;
 		random=r;
 		grid=g;
+		possibleCards=allCards;
 		fillArray();
 	}
 	
@@ -25,11 +29,16 @@ public class BoosterPack {
 		for(int i=0;i<cards.length-1;i++) {
 			double roll=random.nextDouble();
 			
-			double prob = grid.getProbablity(level, i%5);
+			boolean inserted=false;
+			do {
+				Card c = getRandomCard();
+				double prob = grid.getProbablity(level, c.getLevel());
 			
-			if(prob>=roll) {
-				//Add card 
-			}
+				if(prob>=roll) {
+					cards[i]=new Card(c);
+					inserted=true;
+				}
+			}while(!inserted);
 		}
 		
 	}
@@ -52,6 +61,11 @@ public class BoosterPack {
 			toRet+=c.getValue();
 		}
 		return toRet;
+	}
+	
+	private Card getRandomCard() {
+		int slot=random.nextInt(possibleCards.size());
+		return possibleCards.get(slot);
 	}
 
 }
